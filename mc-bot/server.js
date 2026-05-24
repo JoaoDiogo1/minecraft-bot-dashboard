@@ -23,7 +23,11 @@ function movimentosOtimizados() {
 
 // ----- CRIA E GERENCIA O BOT (com reconexão) -----
 function criarBot() {
-  bot = mineflayer.createBot({ host: 'localhost', port: 25565, username: 'Brocoz' })
+  bot = mineflayer.createBot({
+    host: process.env.MC_HOST || 'localhost',   // localhost direto; host.docker.internal no Docker
+    port: 25565,
+    username: 'Brocoz'
+  })
   bot.loadPlugin(pathfinder)
   bot.loadPlugin(collectBlock)
   bot.loadPlugin(pvp)

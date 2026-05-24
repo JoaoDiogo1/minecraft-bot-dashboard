@@ -1,0 +1,21 @@
+services:
+  # ===== BOT + API =====
+  bot:
+    build: ./mc-bot
+    ports:
+      - "3000:3000"
+      - "3007:3007"
+    environment:
+      - MC_HOST=host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  # ===== PAINEL =====
+  painel:
+    build: ./painel
+    ports:
+      - "5173:80"
+    depends_on:
+      - bot
+    restart: unless-stopped
